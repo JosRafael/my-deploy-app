@@ -37,7 +37,7 @@ app.post('/users', async (req, res) => {
     res.json(user);
   } catch (error) {
     if (error.code === 'P2002') {
-      res.status(400).json({ error: 'Email already exists' });
+      res.status(400).json({ error: 'Email não exists' });
     } else {
       console.error('Error creating user:', error);
       res.status(500).json({ error: 'Internal Server Error' });
