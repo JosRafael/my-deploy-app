@@ -18,16 +18,18 @@ jobs:
 
       - name: Configure SSH key
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_PRIVATE_KEY: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCnOpYvrC+FiwF+2zWu7eOObpI5m6iysDnLLWYcvN3GSxBJ5lj21ud29gWLHXWUmij32V4rTEgAF96pYiwFMRts9qOL4u6TSR0EYTABcE9byUKGu3R8gpsaGqI2pyUyLQgHdrAkZYr90ydDx1frNdBmKodhd7WJkU8JkI9pGbuX7nnIfRuF3rdUb7RgEOZhNNoN+RdmTOWAvvujQ+znGFogWQmRZ2DnTg2uQzWS6JVmNrsb6AuJ05L7PDHm7wpT24/TdgXJ9jSm0DlRZsK9dwfxJDlT2U2I9m7fEWgKLOZ0I/E+JS4xFlzBL8IYJp4oFb2vAwxE3dFQW5fpgyghTWBW38fdGPe2q87N9pusTcvuBTpdu8TgO2YvZPFtvDM3YX460iPOrMNwcwOWO2Xe30kI7LEf6CzOOT3Mkoep6PBKGbvmgWZKYv1Akt6Ap0RH4efxWX8dLtDboyJY0nVSd7EdZBudu7xxXBI7F3mPoiY3y0oSSYCgrk3Y7tfaR+j27sPKqDPbsKqm/WTSCzikNchGAqrWvwzUeeBLPicnF3XaQBWwHPWB8LFfjp94Jg2/e8PzCmWUkMbv7ownSJvLfMe6NAiHx/MTy9tqiXeXKHsYmHgDPi+MBic79TuWfqKlXu39tNlBbPhOKRizKbI3fOXrlFoTfELYNQtsdLY92G7fsw== rafaelmatiashue@gmail.com
+
         run: |
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCnOpYvrC+FiwF+2zWu7eOObpI5m6iysDnLLWYcvN3GSxBJ5lj21ud29gWLHXWUmij32V4rTEgAF96pYiwFMRts9qOL4u6TSR0EYTABcE9byUKGu3R8gpsaGqI2pyUyLQgHdrAkZYr90ydDx1frNdBmKodhd7WJkU8JkI9pGbuX7nnIfRuF3rdUb7RgEOZhNNoN+RdmTOWAvvujQ+znGFogWQmRZ2DnTg2uQzWS6JVmNrsb6AuJ05L7PDHm7wpT24/TdgXJ9jSm0DlRZsK9dwfxJDlT2U2I9m7fEWgKLOZ0I/E+JS4xFlzBL8IYJp4oFb2vAwxE3dFQW5fpgyghTWBW38fdGPe2q87N9pusTcvuBTpdu8TgO2YvZPFtvDM3YX460iPOrMNwcwOWO2Xe30kI7LEf6CzOOT3Mkoep6PBKGbvmgWZKYv1Akt6Ap0RH4efxWX8dLtDboyJY0nVSd7EdZBudu7xxXBI7F3mPoiY3y0oSSYCgrk3Y7tfaR+j27sPKqDPbsKqm/WTSCzikNchGAqrWvwzUeeBLPicnF3XaQBWwHPWB8LFfjp94Jg2/e8PzCmWUkMbv7ownSJvLfMe6NAiHx/MTy9tqiXeXKHsYmHgDPi+MBic79TuWfqKlXu39tNlBbPhOKRizKbI3fOXrlFoTfELYNQtsdLY92G7fsw== rafaelmatiashue@gmail.com" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Start SSH agent
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCnOpYvrC+FiwF+2zWu7eOObpI5m6iysDnLLWYcvN3GSxBJ5lj21ud29gWLHXWUmij32V4rTEgAF96pYiwFMRts9qOL4u6TSR0EYTABcE9byUKGu3R8gpsaGqI2pyUyLQgHdrAkZYr90ydDx1frNdBmKodhd7WJkU8JkI9pGbuX7nnIfRuF3rdUb7RgEOZhNNoN+RdmTOWAvvujQ+znGFogWQmRZ2DnTg2uQzWS6JVmNrsb6AuJ05L7PDHm7wpT24/TdgXJ9jSm0DlRZsK9dwfxJDlT2U2I9m7fEWgKLOZ0I/E+JS4xFlzBL8IYJp4oFb2vAwxE3dFQW5fpgyghTWBW38fdGPe2q87N9pusTcvuBTpdu8TgO2YvZPFtvDM3YX460iPOrMNwcwOWO2Xe30kI7LEf6CzOOT3Mkoep6PBKGbvmgWZKYv1Akt6Ap0RH4efxWX8dLtDboyJY0nVSd7EdZBudu7xxXBI7F3mPoiY3y0oSSYCgrk3Y7tfaR+j27sPKqDPbsKqm/WTSCzikNchGAqrWvwzUeeBLPicnF3XaQBWwHPWB8LFfjp94Jg2/e8PzCmWUkMbv7ownSJvLfMe6NAiHx/MTy9tqiXeXKHsYmHgDPi+MBic79TuWfqKlXu39tNlBbPhOKRizKbI3fOXrlFoTfELYNQtsdLY92G7fsw== rafaelmatiashue@gmail.com
+
 
       - name: Deploy to VPS
         env:
