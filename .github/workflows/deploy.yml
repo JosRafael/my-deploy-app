@@ -20,7 +20,7 @@ jobs:
       uses: docker/login-action@v1
       with:
         username: josrafael  # Substitua pelo seu nome de usuário do Docker Hub
-        password: ${{ secrets.DOCKER_HUB_TOKEN }}  # Substitua pela sua secret do Docker Hub
+        password: 38714843Qaz  # Substitua pela sua secret do Docker Hub
 
     - name: Build and push Docker image
       run: |
