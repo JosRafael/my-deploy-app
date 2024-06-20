@@ -39,5 +39,5 @@ jobs:
           docker pull seu-usuario/my-deploy-app:latest &&
           docker stop root_app_1 || true &&
           docker rm root_app_1 || true &&
-          docker run -d --name root_app_1 -p 3001:3001 seu-usuario/my-deploy-app:latest
+          docker run -d --name root_app_1 -p 3001:3001 JosRafael/my-deploy-app:latest
         "
