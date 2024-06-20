@@ -20,7 +20,7 @@ jobs:
       uses: docker/login-action@v1
       with:
         username: josrafael  # Substitua pelo seu nome de usuário do Docker Hub
-        password: 38714843Qaz # Referência ao seu token de acesso pessoal do Docker Hub
+        password: 38714843Qaz  # Substitua pela sua secret do Docker Hub
 
     - name: Build and push Docker image
       run: |
@@ -30,12 +30,12 @@ jobs:
     - name: Deploy to VPS
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SSH_HOST: ${{ secrets.SSH_HOST }}
-        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+        SSH_HOST: 195.200.4.214  
+        SSH_USERNAME: root
       run: |
-        echo "$SSH_PRIVATE_KEY" > key.pem
+        echo "$secrets.SSH_PRIVATE_KEY" > key.pem
         chmod 600 key.pem
-        ssh -i key.pem -o StrictHostKeyChecking=no root@195.200.4.214 "
+        ssh -i key.pem -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "
           docker pull josrafael/my-deploy-app:latest &&
           docker stop root_app_1 || true &&
           docker rm root_app_1 || true &&
