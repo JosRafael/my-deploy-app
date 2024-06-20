@@ -33,7 +33,7 @@ jobs:
         SSH_HOST: ${{ secrets.SSH_HOST }}
         SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
       run: |
-        ssh -i key.pem -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "
+        ssh $SSH_USERNAME@$SSH_HOST "
           docker pull josrafael/my-deploy-app:latest &&
           docker stop root_app_1 || true &&
           docker rm root_app_1 || true &&
