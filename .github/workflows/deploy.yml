@@ -20,7 +20,7 @@ jobs:
       uses: docker/login-action@v1
       with:
         username: josrafael  # Substitua pelo seu nome de usuário do Docker Hub
-        password: 38714843Qaz  # Substitua pela sua secret do Docker Hub
+        password: ${{ secrets.DOCKER_PASSWORD }}  # Substitua pela sua secret do Docker Hub
 
     - name: Build and push Docker image
       run: |
@@ -29,13 +29,20 @@ jobs:
 
     - name: Deploy to VPS
       env:
-        SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-        SSH_HOST: ${{secrets.SSH_HOST}}
-        SSH_USERNAME: ${{secrets.SSH_USERNAME}}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
       run: |
+        # Clear SSH known hosts cache
+        ssh-keygen -R $SSH_HOST
+
+        # SSH into the server and accept the new key
+        ssh -o StrictHostKeyChecking=accept-new $SSH_USERNAME@$SSH_HOST "echo 'Host key accepted.'"
+
+        # Now perform the actual deployment steps
         ssh $SSH_USERNAME@$SSH_HOST "
           docker pull josrafael/my-deploy-app:latest &&
-          docker stop root_app_1 || true &&
-          docker rm root_app_1 || true &&
-          docker run -d --name root_app_1 -p 3001:3001 josrafael/my-deploy-app:latest
+          docker stop ***_app_1 || true &&
+          docker rm ***_app_1 || true &&
+          docker run -d --name ***_app_1 -p 3001:3001 josrafael/my-deploy-app:latest
         "
