@@ -42,7 +42,7 @@ jobs:
         # Now perform the actual deployment steps
         ssh $SSH_USERNAME@$SSH_HOST "
           docker pull josrafael/my-deploy-app:latest &&
-          docker stop ***_app_1 || true &&
-          docker rm ***_app_1 || true &&
+          docker stop root_app_1 || true &&
+          docker rm root_app_1 || true &&
           docker run -d --name ***_app_1 -p 3001:3001 josrafael/my-deploy-app:latest
         "
